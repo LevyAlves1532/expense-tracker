@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 
 import Input from "../../components/Inputs/Input";
 import AuthLayout from "../../components/layouts/AuthLayout";
+
 import { validateEmail } from "../../utils/helper";
 
 const Login = () => {
