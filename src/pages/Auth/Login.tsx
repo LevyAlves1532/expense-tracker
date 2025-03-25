@@ -4,7 +4,10 @@ import { useNavigate, Link } from "react-router-dom";
 import Input from "../../components/Inputs/Input";
 import AuthLayout from "../../components/layouts/AuthLayout";
 
+import { API_PATHS } from "../../utils/apiPaths";
+import axiosInstance from "../../utils/axiosInstance";
 import { validateEmail } from "../../utils/helper";
+import { isAxiosError } from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -30,6 +33,29 @@ const Login = () => {
     setError(null);
 
     // Login API Call
+    try {
+      const response = await axiosInstance.post<{ access_token: string }>(API_PATHS.AUTH.LOGIN, {
+        email,
+        password,
+      });
+
+      const { access_token } = response.data;
+
+      if (access_token) {
+        localStorage.setItem("token", access_token);
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      if (isAxiosError(error)) {
+        if (error.response && error.response.data.error) {
+          setError(error.response.data.error);
+        } else {
+          setError("Something went wrong. Please try again.");
+        }
+      } else {
+        console.error(error);
+      }
+    }
   }
 
   return (
