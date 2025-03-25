@@ -1,8 +1,10 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 import Input from "../../components/Inputs/Input";
 import AuthLayout from "../../components/layouts/AuthLayout";
+
+import { UserContext, UserType } from "../../context/userContext";
 
 import { API_PATHS } from "../../utils/apiPaths";
 import axiosInstance from "../../utils/axiosInstance";
@@ -11,6 +13,8 @@ import { isAxiosError } from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
+
+  const { updateUser } = useContext(UserContext);
 
   const [ email, setEmail ] = useState("");
   const [ password, setPassword ] = useState("");
@@ -43,6 +47,12 @@ const Login = () => {
 
       if (access_token) {
         localStorage.setItem("token", access_token);
+
+        const responseGetUserInfo = await axiosInstance.get<UserType>(API_PATHS.AUTH.GET_USER_INFO);
+
+        const user = responseGetUserInfo.data;
+        if (updateUser) updateUser(user);
+        
         navigate("/dashboard");
       }
     } catch (error) {
