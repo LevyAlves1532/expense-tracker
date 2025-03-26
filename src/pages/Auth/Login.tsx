@@ -1,5 +1,6 @@
 import { FormEvent, useContext, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { isAxiosError } from "axios";
 
 import Input from "../../components/Inputs/Input";
 import AuthLayout from "../../components/layouts/AuthLayout";
@@ -9,7 +10,6 @@ import { UserContext, UserType } from "../../context/userContext";
 import { API_PATHS } from "../../utils/apiPaths";
 import axiosInstance from "../../utils/axiosInstance";
 import { validateEmail } from "../../utils/helper";
-import { isAxiosError } from "axios";
 
 const Login = () => {
   const navigate = useNavigate();

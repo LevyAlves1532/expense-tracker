@@ -1,14 +1,21 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { isAxiosError } from "axios";
 
 import Input from "../../components/Inputs/Input";
 import ProfilePhotoSelector from "../../components/Inputs/ProfilePhotoSelector";
 import AuthLayout from "../../components/layouts/AuthLayout";
 
+import { UserContext, UserType } from "../../context/userContext";
+
+import { API_PATHS } from "../../utils/apiPaths";
+import axiosInstance from "../../utils/axiosInstance";
 import { validateEmail } from "../../utils/helper";
 
 const SignUp = () => {
   const navigate = useNavigate();
+
+  const { updateUser } = useContext(UserContext);
 
   const [ profilePic, setProfilePic ] = useState<File | null>(null);
   const [ fullName, setFullName ] = useState('');
@@ -19,8 +26,6 @@ const SignUp = () => {
   // Handle Sign Up Form Submit
   const handleSignUp = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    let profileImageUrl = '';
     
     if (!fullName) {
       setError('Please enter your name');
@@ -40,6 +45,46 @@ const SignUp = () => {
     setError(null);
 
     // SignUP API Call
+    try {
+      const formData = new FormData();
+
+      formData.append('fullName', fullName);
+      formData.append('email', email);
+      formData.append('password', password);
+      
+      if (profilePic) {
+        formData.append('profileImageUrl', profilePic);
+      }
+
+      const response = await axiosInstance.post<{ access_token: string }>(API_PATHS.AUTH.REGISTER, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      const { access_token } = response.data;
+
+      if (access_token) {
+        localStorage.setItem("token", access_token);
+
+        const responseGetUserInfo = await axiosInstance.get<UserType>(API_PATHS.AUTH.GET_USER_INFO);
+
+        const user = responseGetUserInfo.data;
+        if (updateUser) updateUser(user);
+        
+        navigate("/dashboard");
+      } 
+    } catch (error) {
+      if (isAxiosError(error)) {
+        if (error.response && error.response.data.error) {
+          setError(error.response.data.error);
+        } else {
+          setError("Something went wrong. Please try again.");
+        }
+      } else {
+        console.error(error);
+      }
+    }
   }
 
   return (
