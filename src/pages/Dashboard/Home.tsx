@@ -12,6 +12,7 @@ import { API_PATHS } from "../../utils/apiPaths";
 import axiosInstance from "../../utils/axiosInstance";
 import { addThousandsSeparator } from "../../utils/helper";
 import RecentTransactions from "../../components/Dashboard/RecentTransactions";
+import FinanceOverview from "../../components/Dashboard/FinanceOverview";
 
 type DashboardDataType = {
   total_income: number
@@ -58,7 +59,7 @@ const Home = () => {
   return (
     <DashboardLayout activeMenu="Dashboard">
       <div className="my-5 mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <InfoCard 
             icon={<IoMdCard />}
             label="Total Balance"
@@ -77,12 +78,18 @@ const Home = () => {
             value={addThousandsSeparator(dashboardData?.total_expense)}
             color="bg-red-500"
           />
-        </div>
+        </div> */}
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
           <RecentTransactions 
             transactions={dashboardData?.last_transactions}
             onSeeMore={() => navigate('/expense')}
+          />
+
+          <FinanceOverview 
+            totalBalance={dashboardData?.total_balance || 0}
+            totalIncome={dashboardData?.total_income || 0}
+            totalExpense={dashboardData?.total_expense || 0}
           />
         </div>
       </div>
