@@ -11,6 +11,7 @@ import { useUserAuth } from "../../hooks/useUserAuth";
 import { API_PATHS } from "../../utils/apiPaths";
 import axiosInstance from "../../utils/axiosInstance";
 import { addThousandsSeparator } from "../../utils/helper";
+import RecentTransactions from "../../components/Dashboard/RecentTransactions";
 
 type DashboardDataType = {
   total_income: number
@@ -75,6 +76,13 @@ const Home = () => {
             label="Total Expense"
             value={addThousandsSeparator(dashboardData?.total_expense)}
             color="bg-red-500"
+          />
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+          <RecentTransactions 
+            transactions={dashboardData?.last_transactions}
+            onSeeMore={() => navigate('/expense')}
           />
         </div>
       </div>
