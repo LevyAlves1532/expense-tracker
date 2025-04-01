@@ -6,7 +6,7 @@ export type Props = {
   value: string;
   label: string;
   placeholder: string;
-  type: 'text' | 'password';
+  type: 'text' | 'password' | 'number' | 'date';
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 

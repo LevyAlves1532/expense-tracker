@@ -8,6 +8,7 @@ import axiosInstance from "../../utils/axiosInstance";
 
 import { TransactionsTypes } from "../../types";
 import Modal from "../../components/Modal";
+import AddIncomeForm from "../../components/Income/AddIncomeForm";
 
 const Income = () => {
   const [ incomeData, setIncomeData ] = useState<TransactionsTypes[]>([]);
@@ -75,7 +76,9 @@ const Income = () => {
           onClose={() => setOpenAddIncomeModal(false)}
           title="Add Inome"
         >
-          <div>Add Income Form</div>
+          <AddIncomeForm 
+            onAddIncome={handleAddIncome}
+          />
         </Modal>
       </div>
     </DashboardLayout>
