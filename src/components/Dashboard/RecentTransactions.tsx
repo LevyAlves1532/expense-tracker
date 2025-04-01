@@ -1,8 +1,11 @@
-import { LuArrowRight } from 'react-icons/lu';
 import moment from 'moment';
+import { LuArrowRight } from 'react-icons/lu';
+
 import TransactionInfoCard from '../Cards/TransactionInfoCard';
 
-const RecentTransactions = ({ transactions, onSeeMore }: { transactions?: any[], onSeeMore: () => void; }) => {  
+import { TransactionsTypes } from '../../types';
+
+const RecentTransactions = ({ transactions, onSeeMore }: { transactions?: TransactionsTypes[], onSeeMore: () => void; }) => {  
   return (
     <div className="card">
       <div className="flex items-center justify-between">
@@ -17,11 +20,11 @@ const RecentTransactions = ({ transactions, onSeeMore }: { transactions?: any[],
         {transactions?.slice(0, 5)?.map((item) => (
           <TransactionInfoCard
             key={`transaction_${item.id}`}
-            title={item.type == 'expense' ? item.category : item.source}
+            title={item.category || item.source || ''}
             icon={item.icon}
             date={moment(item.date).format('Do MMM YYYY')}
             amount={item.amount}
-            type={item.type}
+            type={item.type || 'income'}
             hideDeleteBtn
           />
         ))}

@@ -1,9 +1,11 @@
 import CustomPieChart from "../charts/CustomPieChart";
 
+import { ResumTransactionTypes } from "../../types";
+
 const COLORS = ['#875CF5', '#FA2C37', '#FF6900'];
 
 const FinanceOverview = ({ totalBalance, totalIncome, totalExpense }: { totalBalance: number,  totalIncome: number, totalExpense: number }) => {
-  const balanceData = [
+  const balanceData: ResumTransactionTypes[] = [
     {name: 'Total Balance', amount: totalBalance},
     {name: 'Total Expense', amount: totalExpense},
     {name: 'Total Income', amount: totalIncome},

@@ -5,24 +5,28 @@ import { LuHandCoins, LuWalletMinimal } from "react-icons/lu";
 
 import InfoCard from "../../components/Cards/InfoCard";
 import DashboardLayout from "../../components/layouts/DashboardLayout"
+import RecentTransactions from "../../components/Dashboard/RecentTransactions";
+import FinanceOverview from "../../components/Dashboard/FinanceOverview";
+import ExpenseTransactions from "../../components/Dashboard/ExpenseTransactions";
+import Last30DaysExpenses from "../../components/Dashboard/Last30DaysExpenses";
+import RecentIncomeWithChart from "../../components/Dashboard/RecentIncomeWithChart";
+import RecentIncome from "../../components/Dashboard/RecentIncome";
 
 import { useUserAuth } from "../../hooks/useUserAuth";
 
 import { API_PATHS } from "../../utils/apiPaths";
 import axiosInstance from "../../utils/axiosInstance";
 import { addThousandsSeparator } from "../../utils/helper";
-import RecentTransactions from "../../components/Dashboard/RecentTransactions";
-import FinanceOverview from "../../components/Dashboard/FinanceOverview";
+
+import { DashboardLastDays, TransactionsTypes } from "../../types";
 
 type DashboardDataType = {
-  total_income: number
-  total_expense: number
-  total_balance: number
-  last_60_days_income_transactions: any[]
-  income_last_60_days: number
-  last_30_days_expense_transactions: any[]
-  expense_last_30_days: number
-  last_transactions: any[]
+  total_income: number;
+  total_expense: number;
+  total_balance: number;
+  last_60_days_income: DashboardLastDays<TransactionsTypes>;
+  last_30_days_expense: any;
+  last_transactions: TransactionsTypes[];
 };
 
 const Home = () => {
@@ -59,7 +63,7 @@ const Home = () => {
   return (
     <DashboardLayout activeMenu="Dashboard">
       <div className="my-5 mx-auto">
-        {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <InfoCard 
             icon={<IoMdCard />}
             label="Total Balance"
@@ -78,7 +82,7 @@ const Home = () => {
             value={addThousandsSeparator(dashboardData?.total_expense)}
             color="bg-red-500"
           />
-        </div> */}
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
           <RecentTransactions 
@@ -90,6 +94,25 @@ const Home = () => {
             totalBalance={dashboardData?.total_balance || 0}
             totalIncome={dashboardData?.total_income || 0}
             totalExpense={dashboardData?.total_expense || 0}
+          />
+
+          <ExpenseTransactions
+            transactions={dashboardData?.last_30_days_expense.transactions || []}
+            onSeeMore={() => navigate('/expense')}
+          />
+
+          <Last30DaysExpenses 
+            data={dashboardData?.last_30_days_expense.transactions || []}
+          />
+
+          <RecentIncomeWithChart 
+            data={dashboardData?.last_60_days_income?.transactions?.slice(0, 4) || []}
+            totalIncome={dashboardData?.total_income || 0}
+          />
+
+          <RecentIncome 
+            transactions={dashboardData?.last_60_days_income?.transactions || []}
+            onSeeMore={() => navigate('/income')}
           />
         </div>
       </div>

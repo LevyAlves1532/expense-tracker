@@ -9,8 +9,10 @@ import {
 import CustomTooltip from './CustomTooltip';
 import CustomLegend from './CustomLegend';
 
+import { ResumTransactionTypes } from '../../types';
+
 export type Props = {
-  data: any[];
+  data: ResumTransactionTypes[];
   label: string;
   totalAmount: string;
   colors: string[];
