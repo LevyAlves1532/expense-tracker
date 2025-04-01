@@ -5,6 +5,8 @@ import DashboardLayout from "../../components/layouts/DashboardLayout"
 import IncomeOverview from "../../components/Income/IncomeOverview";
 import Modal from "../../components/Modal";
 import AddIncomeForm, { IncomeTypes } from "../../components/Income/AddIncomeForm";
+import IncomeList from "../../components/Income/IncomeList";
+import DeleteAlert from "../../components/DeleteAlert";
 
 import { API_PATHS } from "../../utils/apiPaths";
 import axiosInstance from "../../utils/axiosInstance";
@@ -16,7 +18,7 @@ const Income = () => {
   const [ incomeData, setIncomeData ] = useState<TransactionsTypes[]>([]);
   const [ loading, setLoading ] = useState<boolean>(false);
   const [ openAddIncomeModal, setOpenAddIncomeModal ] = useState<boolean>(false);
-  const [ openDeleteAlert, setOpenDeleteAlert ] = useState<{ show: boolean, data: TransactionsTypes | null }>({
+  const [ openDeleteAlert, setOpenDeleteAlert ] = useState<{ show: boolean, data: number | null }>({
     show: false,
     data: null,
   });
@@ -107,6 +109,17 @@ const Income = () => {
               onAddIncome={() => setOpenAddIncomeModal(true)}
             />
           </div>
+
+          <IncomeList 
+            transactions={incomeData}
+            onDelete={(id) => {
+              setOpenDeleteAlert({
+                show: true,
+                data: id,
+              });
+            }}
+            onDownload={handleDownloadIncomeDetails}
+          />
         </div>
 
         <Modal
@@ -116,6 +129,17 @@ const Income = () => {
         >
           <AddIncomeForm 
             onAddIncome={handleAddIncome}
+          />
+        </Modal>
+
+        <Modal
+          isOpen={openDeleteAlert.show}
+          onClose={() => setOpenDeleteAlert({ show: false, data: null })}
+          title="Delete Income"
+        >
+          <DeleteAlert 
+            content="Are you sure you want to delete this in income detail?"
+            onDelete={() => deleteIncome(openDeleteAlert.data!)}
           />
         </Modal>
       </div>
