@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react"
+import toast from "react-hot-toast";
 
 import DashboardLayout from "../../components/layouts/DashboardLayout"
 import IncomeOverview from "../../components/Income/IncomeOverview";
+import Modal from "../../components/Modal";
+import AddIncomeForm, { IncomeTypes } from "../../components/Income/AddIncomeForm";
 
 import { API_PATHS } from "../../utils/apiPaths";
 import axiosInstance from "../../utils/axiosInstance";
 
 import { TransactionsTypes } from "../../types";
-import Modal from "../../components/Modal";
-import AddIncomeForm from "../../components/Income/AddIncomeForm";
+import { isAxiosError } from "axios";
 
 const Income = () => {
   const [ incomeData, setIncomeData ] = useState<TransactionsTypes[]>([]);
@@ -39,8 +41,44 @@ const Income = () => {
   }
 
   // Handle Add Income
-  const handleAddIncome = async (income: any) => {
+  const handleAddIncome = async (income: IncomeTypes) => { 
+    const { source, amount, date, icon } = income;
 
+    // Validation Checks
+    if (!source.trim()) {
+      toast.error('Source is required.');
+      return;
+    }
+
+    if (!amount || isNaN(amount) || Number(amount) <= 0) {
+      toast.error('Amount should be a valid number greater than 0.');
+      return;
+    }
+
+    if (!date) {
+      toast.error('Date is required.');
+      return;
+    }
+
+    try {
+      await axiosInstance.post(API_PATHS.INCOME.STORE_INCOME, {
+        source,
+        amount,
+        date,
+        icon,
+      });
+
+      setOpenAddIncomeModal(false);
+      toast.success('Income added successfully');
+      fetchIncomeDetails();
+    } catch (error) {
+      if (isAxiosError(error)) {
+        console.error(
+          'Error adding income:',
+          error.response?.data?.message || error.response?.data?.error || error.message
+        );
+      }
+    }
   }
 
   // Delete Income

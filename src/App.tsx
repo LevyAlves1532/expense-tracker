@@ -4,6 +4,7 @@ import {
   Route, 
   Navigate 
 } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 
 import UserProvider from './context/userContext';
 
@@ -28,6 +29,15 @@ const App = () => {
           </Routes>
         </Router>
       </div>
+
+      <Toaster 
+        toastOptions={{
+          className: '',
+          style: {
+            fontSize: '13px',
+          },
+        }}
+      />
     </UserProvider>
   )
 }
