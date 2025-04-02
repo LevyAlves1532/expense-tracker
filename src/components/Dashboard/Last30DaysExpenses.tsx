@@ -3,8 +3,10 @@ import { useEffect, useState } from "react";
 import { prepareExpenseBarChartData } from "../../utils/helper";
 import CustomBarChart from "../charts/CustomBarChart";
 
-const Last30DaysExpenses = ({ data }: { data: any[] }) => {
-  const [ chartData, setChartData ] = useState<any[]>([]);
+import { ResumTransactionExpenseTypes, TransactionsTypes } from "../../types";
+
+const Last30DaysExpenses = ({ data }: { data: TransactionsTypes[] }) => {
+  const [ chartData, setChartData ] = useState<ResumTransactionExpenseTypes[]>([]);
 
   useEffect(() => {
     const result = prepareExpenseBarChartData(data);

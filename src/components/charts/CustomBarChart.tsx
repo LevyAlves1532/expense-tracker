@@ -10,7 +10,9 @@ import {
   Cell,
 } from 'recharts';
 
-const CustomBarChart = ({ data }: { data: any[] }) => {
+import { ResumTransactionExpenseTypes } from '../../types';
+
+const CustomBarChart = ({ data }: { data: ResumTransactionExpenseTypes[] }) => {
   // Function to alternative colors
   const getBarColor = (index: number): string => {
     return index % 2 === 0 ? '#875cf5' : '#cfbefb';

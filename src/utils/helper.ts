@@ -1,5 +1,5 @@
 import moment from "moment";
-import { TransactionsTypes } from "../types";
+import { ResumTransactionExpenseTypes, TransactionsTypes } from "../types";
 
 export const validateEmail = (email: string) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -30,7 +30,7 @@ export const addThousandsSeparator = (num: number | null = null) => {
         : formattedInteger;
 };
 
-export const prepareExpenseBarChartData = (data: any[] = []) => {
+export const prepareExpenseBarChartData = (data: TransactionsTypes[] = []): ResumTransactionExpenseTypes[] => {
     const chartData = data.map((item) => ({
         category: item?.category,
         amount: item?.amount,

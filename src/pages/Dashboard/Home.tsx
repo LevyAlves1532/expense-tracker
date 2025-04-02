@@ -25,7 +25,7 @@ type DashboardDataType = {
   total_expense: number;
   total_balance: number;
   last_60_days_income: DashboardLastDays<TransactionsTypes>;
-  last_30_days_expense: any;
+  last_30_days_expense: DashboardLastDays<TransactionsTypes>;
   last_transactions: TransactionsTypes[];
 };
 

@@ -8,6 +8,11 @@ export type ResumTransactionTypes = {
   amount: number;
 };
 
+export type ResumTransactionExpenseTypes = { 
+  category?: string, 
+  amount?: number 
+};
+
 export type TransactionsTypes = {
   id: number;
   icon: string | null;
