@@ -50,3 +50,15 @@ export const prepareIncomeBarChartData = (data: any[] = []) => {
 
     return chartData;
 }
+
+export const prepareExpenseLineChartData = (data: any[] = []) => {
+    const sortedData = [...data].sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    const chartData = sortedData.map((item) => ({
+        month: moment(item?.date).format('Do MMM'),
+        amount: item?.amount,
+        category: item?.category,
+    }));
+
+    return chartData;
+}

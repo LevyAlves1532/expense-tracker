@@ -10,6 +10,7 @@ import { API_PATHS } from "../../utils/apiPaths";
 import axiosInstance from "../../utils/axiosInstance";
 
 import { TransactionsTypes } from "../../types";
+import ExpenseOverview from "../../components/Expense/ExpenseOverview";
 
 const Expense = () => {
   useUserAuth();
@@ -91,6 +92,14 @@ const Expense = () => {
   return (
     <DashboardLayout activeMenu="Expense">
       <div className="my-5 mx-auto">
+        <div className="grid grid-cols-1 gap-6">
+          <div className="">
+            <ExpenseOverview 
+              transactions={expenseData}
+              onExpenseIncome={() => setOpenAddExpenseModal(true)}
+            />
+          </div>
+        </div>
       </div>
     </DashboardLayout>
   )
