@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { isAxiosError } from "axios";
 import toast from "react-hot-toast";
 
 import DashboardLayout from "../../components/layouts/DashboardLayout"
@@ -11,10 +12,12 @@ import DeleteAlert from "../../components/DeleteAlert";
 import { API_PATHS } from "../../utils/apiPaths";
 import axiosInstance from "../../utils/axiosInstance";
 
+import { useUserAuth } from "../../hooks/useUserAuth";
 import { TransactionsTypes } from "../../types";
-import { isAxiosError } from "axios";
 
 const Income = () => {
+  useUserAuth();
+
   const [ incomeData, setIncomeData ] = useState<TransactionsTypes[]>([]);
   const [ loading, setLoading ] = useState<boolean>(false);
   const [ openAddIncomeModal, setOpenAddIncomeModal ] = useState<boolean>(false);
@@ -85,7 +88,20 @@ const Income = () => {
 
   // Delete Income
   const deleteIncome = async (id: number) => {
+    try {
+      await axiosInstance.delete(API_PATHS.INCOME.DELETE_INCOME(id));
 
+      setOpenDeleteAlert({ show: false, data: null });
+      toast.success('Income details deleted successfully');
+      fetchIncomeDetails();
+    } catch (error) {
+      if (isAxiosError(error)) {
+        console.error(
+          'Error adding income:',
+          error.response?.data?.message || error.response?.data?.error || error.message
+        );
+      }
+    }
   }
 
   // handle download income details
