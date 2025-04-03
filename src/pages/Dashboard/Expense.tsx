@@ -5,6 +5,7 @@ import { isAxiosError } from "axios";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import ExpenseOverview from "../../components/Expense/ExpenseOverview";
 import AddExpenseForm, { ExpenseTypes } from "../../components/Expense/AddExpenseForm";
+import ExpenseList from "../../components/Expense/ExpenseList";
 import Modal from "../../components/Modal";
 
 import { useUserAuth } from "../../hooks/useUserAuth";
@@ -85,6 +86,29 @@ const Expense = () => {
     }
   }
 
+   // Delete Income
+   const deleteExpense = async (id: number) => {
+    try {
+      await axiosInstance.delete(API_PATHS.EXPENSE.DELETE_EXPENSE(id));
+
+      setOpenDeleteAlert({ show: false, data: null });
+      toast.success('Expense details deleted successfully');
+      fetchExpenseDetails();
+    } catch (error) {
+      if (isAxiosError(error)) {
+        console.error(
+          'Error adding Expense:',
+          error.response?.data?.message || error.response?.data?.error || error.message
+        );
+      }
+    }
+  }
+
+  // handle download expense details
+  const handleDownloadExpenseDetails = () => {
+
+  }
+
   useEffect(() => {
     fetchExpenseDetails();
   
@@ -101,6 +125,17 @@ const Expense = () => {
               onExpenseIncome={() => setOpenAddExpenseModal(true)}
             />
           </div>
+
+          <ExpenseList 
+            transactions={expenseData}
+            onDelete={(id) => {
+              setOpenDeleteAlert({
+                show: true,
+                data: id,
+              });
+            }}
+            onDownload={handleDownloadExpenseDetails}
+          />
         </div>
 
         <Modal
