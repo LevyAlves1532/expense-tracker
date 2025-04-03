@@ -3,6 +3,9 @@ import toast from "react-hot-toast";
 import { isAxiosError } from "axios";
 
 import DashboardLayout from "../../components/layouts/DashboardLayout";
+import ExpenseOverview from "../../components/Expense/ExpenseOverview";
+import AddExpenseForm, { ExpenseTypes } from "../../components/Expense/AddExpenseForm";
+import Modal from "../../components/Modal";
 
 import { useUserAuth } from "../../hooks/useUserAuth";
 
@@ -10,7 +13,6 @@ import { API_PATHS } from "../../utils/apiPaths";
 import axiosInstance from "../../utils/axiosInstance";
 
 import { TransactionsTypes } from "../../types";
-import ExpenseOverview from "../../components/Expense/ExpenseOverview";
 
 const Expense = () => {
   useUserAuth();
@@ -43,7 +45,7 @@ const Expense = () => {
   }
 
   // Handle Add Income
-  const handleAddExpense = async (expense: any) => { 
+  const handleAddExpense = async (expense: ExpenseTypes) => { 
     const { category, amount, date, icon } = expense;
 
     // Validation Checks
@@ -100,6 +102,16 @@ const Expense = () => {
             />
           </div>
         </div>
+
+        <Modal
+          isOpen={openAddExpenseModal}
+          title="Add Expense"
+          onClose={() => setOpenAddExpenseModal(false)}
+        >
+          <AddExpenseForm 
+            onAddExpense={handleAddExpense}
+          />
+        </Modal>
       </div>
     </DashboardLayout>
   )
