@@ -6,6 +6,7 @@ import DashboardLayout from "../../components/layouts/DashboardLayout";
 import ExpenseOverview from "../../components/Expense/ExpenseOverview";
 import AddExpenseForm, { ExpenseTypes } from "../../components/Expense/AddExpenseForm";
 import ExpenseList from "../../components/Expense/ExpenseList";
+import DeleteAlert from "../../components/DeleteAlert";
 import Modal from "../../components/Modal";
 
 import { useUserAuth } from "../../hooks/useUserAuth";
@@ -145,6 +146,17 @@ const Expense = () => {
         >
           <AddExpenseForm 
             onAddExpense={handleAddExpense}
+          />
+        </Modal>
+
+        <Modal
+          isOpen={openDeleteAlert.show}
+          onClose={() => setOpenDeleteAlert({ show: false, data: null })}
+          title="Delete Expense"
+        >
+          <DeleteAlert 
+            content="Are you sure you want to delete this in expense detail?"
+            onDelete={() => deleteExpense(openDeleteAlert.data!)}
           />
         </Modal>
       </div>
