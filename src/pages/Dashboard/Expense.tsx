@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { isAxiosError } from "axios";
 
@@ -9,6 +9,8 @@ import ExpenseList from "../../components/Expense/ExpenseList";
 import DeleteAlert from "../../components/DeleteAlert";
 import Modal from "../../components/Modal";
 
+import { UserContext } from "../../context/userContext";
+
 import { useUserAuth } from "../../hooks/useUserAuth";
 
 import { API_PATHS } from "../../utils/apiPaths";
@@ -18,6 +20,8 @@ import { TransactionsTypes } from "../../types";
 
 const Expense = () => {
   useUserAuth();
+
+  const { user } = useContext(UserContext);
 
   const [ expenseData, setExpenseData ] = useState<TransactionsTypes[]>([]);
   const [ loading, setLoading ] = useState<boolean>(false);
@@ -107,7 +111,7 @@ const Expense = () => {
 
   // handle download expense details
   const handleDownloadExpenseDetails = () => {
-
+    window.open(API_PATHS.EXPENSE.DOWNLOAD_EXPENSE(user!.id));
   }
 
   useEffect(() => {

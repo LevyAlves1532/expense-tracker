@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { isAxiosError } from "axios";
 import toast from "react-hot-toast";
 
@@ -9,6 +9,8 @@ import AddIncomeForm, { IncomeTypes } from "../../components/Income/AddIncomeFor
 import IncomeList from "../../components/Income/IncomeList";
 import DeleteAlert from "../../components/DeleteAlert";
 
+import { UserContext } from "../../context/userContext";
+
 import { API_PATHS } from "../../utils/apiPaths";
 import axiosInstance from "../../utils/axiosInstance";
 
@@ -17,6 +19,8 @@ import { TransactionsTypes } from "../../types";
 
 const Income = () => {
   useUserAuth();
+
+  const { user } = useContext(UserContext);
 
   const [ incomeData, setIncomeData ] = useState<TransactionsTypes[]>([]);
   const [ loading, setLoading ] = useState<boolean>(false);
@@ -106,7 +110,7 @@ const Income = () => {
 
   // handle download income details
   const handleDownloadIncomeDetails = async () => {
-
+    window.open(API_PATHS.INCOME.DOWNLOAD_INCOME(user!.id));
   }
 
   useEffect(() => {
