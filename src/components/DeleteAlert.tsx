@@ -1,4 +1,8 @@
+import { useLanguage } from "../hooks/useLanguage";
+
 const DeleteAlert = ({ content, onDelete }: { content: string, onDelete: () => void }) => {
+  const { t } = useLanguage();
+
   return (
     <div>
       <p className="text-sm">
@@ -11,7 +15,7 @@ const DeleteAlert = ({ content, onDelete }: { content: string, onDelete: () => v
           className="add-btn add-btn-fill"
           onClick={onDelete}
         >
-          Delete
+          {t('dashboard.income.transactions.delete.button')}
         </button>
       </div>
     </div>

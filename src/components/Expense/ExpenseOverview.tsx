@@ -3,12 +3,16 @@ import { LuPlus } from "react-icons/lu";
 
 import CustomLineChart from "../charts/CustomLineChart";
 
+import { useLanguage } from "../../hooks/useLanguage";
+
 import { prepareExpenseLineChartData } from "../../utils/helper";
 
-import { TransactionsTypes } from "../../types";
+import { ChartDataTypes, TransactionsTypes } from "../../types";
 
 const ExpenseOverview = ({ transactions, onExpenseIncome }: { transactions: TransactionsTypes[], onExpenseIncome: () => void }) => {
-  const [ chartData, setChartData ] = useState<any[]>([]);
+  const { t } = useLanguage();
+
+  const [ chartData, setChartData ] = useState<ChartDataTypes[]>([]);
 
   useEffect(() => {
     const result = prepareExpenseLineChartData(transactions);
@@ -22,18 +26,17 @@ const ExpenseOverview = ({ transactions, onExpenseIncome }: { transactions: Tran
       <div className="flex items-center justify-between">
         <div className="">
           <h5 className="text-lg">
-            Expense Overview
+            {t('dashboard.expense.graphic.title')}
           </h5>
 
           <p className="text-xs text-gray-400 mt-0.5">
-            Track your spending trends over time and again insights into where
-            your money goes.
+            {t('dashboard.expense.graphic.subtitle')}
           </p>
         </div>
 
         <button className="add-btn" onClick={onExpenseIncome}>
           <LuPlus className="text-lg" />
-          Add Expense
+          {t('dashboard.expense.graphic.button')}
         </button>
       </div>
 

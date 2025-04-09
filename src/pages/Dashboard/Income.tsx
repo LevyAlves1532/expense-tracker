@@ -15,11 +15,14 @@ import { API_PATHS } from "../../utils/apiPaths";
 import axiosInstance from "../../utils/axiosInstance";
 
 import { useUserAuth } from "../../hooks/useUserAuth";
+import { useLanguage } from "../../hooks/useLanguage";
+
 import { TransactionsTypes } from "../../types";
 
 const Income = () => {
   useUserAuth();
 
+  const { t } = useLanguage();
   const { user } = useContext(UserContext);
 
   const [ incomeData, setIncomeData ] = useState<TransactionsTypes[]>([]);
@@ -120,7 +123,7 @@ const Income = () => {
   }, [])
 
   return (
-    <DashboardLayout activeMenu="Income">
+    <DashboardLayout activeMenu="income">
       <div className="my-5 mx-auto">
         <div className="grid grid-cols-1 gap-6">
           <div className="">
@@ -145,7 +148,7 @@ const Income = () => {
         <Modal
           isOpen={openAddIncomeModal}
           onClose={() => setOpenAddIncomeModal(false)}
-          title="Add Inome"
+          title={t('dashboard.income.graphic.form.title')}
         >
           <AddIncomeForm 
             onAddIncome={handleAddIncome}
@@ -155,10 +158,10 @@ const Income = () => {
         <Modal
           isOpen={openDeleteAlert.show}
           onClose={() => setOpenDeleteAlert({ show: false, data: null })}
-          title="Delete Income"
+          title={t('dashboard.income.transactions.delete.title')}
         >
           <DeleteAlert 
-            content="Are you sure you want to delete this in income detail?"
+            content={t('dashboard.income.transactions.delete.text')}
             onDelete={() => deleteIncome(openDeleteAlert.data!)}
           />
         </Modal>

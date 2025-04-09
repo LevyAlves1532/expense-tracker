@@ -13,6 +13,13 @@ export type ResumTransactionExpenseTypes = {
   amount?: number 
 };
 
+export type ChartDataTypes = {
+  month: string;
+  amount: number;
+  source?: string;
+  category?: string;
+}
+
 export type TransactionsTypes = {
   id: number;
   icon: string | null;
@@ -24,3 +31,5 @@ export type TransactionsTypes = {
   updated_at: string;
   type?: 'expense' | 'income';
 };
+
+export type LanguagesTypes = 'en-US' | 'es-ES' | 'pt-BR';

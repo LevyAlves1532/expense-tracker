@@ -3,6 +3,8 @@ import { useState } from "react";
 import Input from "../Inputs/Input";
 import EmojiPickerPopup from "../EmojiPickerPopup";
 
+import { useLanguage } from "../../hooks/useLanguage";
+
 export type IncomeTypes = {
   source: string;
   amount: number;
@@ -11,6 +13,8 @@ export type IncomeTypes = {
 };
 
 const AddIncomeForm = ({ onAddIncome }: { onAddIncome: (income: any) => void }) => {
+  const { t } = useLanguage();
+
   const  [ income, setIncome ] = useState<IncomeTypes>({
     source: '',
     amount: 0,
@@ -30,15 +34,15 @@ const AddIncomeForm = ({ onAddIncome }: { onAddIncome: (income: any) => void }) 
       <Input 
         value={income.source}
         onChange={({ target }) => handleChange('source', target.value)}
-        label="Income Source"
-        placeholder="Freelance, Salary, etc."
+        label={t('dashboard.income.graphic.form.source.label')}
+        placeholder={t('dashboard.income.graphic.form.source.placeholder')}
         type="text"
       />
 
       <Input 
         value={`${income.amount}`}
         onChange={({ target }) => handleChange('amount', parseFloat(target.value))}
-        label="Income Amount"
+        label={t('dashboard.income.graphic.form.amount')}
         placeholder=""
         type="number"
       />
@@ -46,7 +50,7 @@ const AddIncomeForm = ({ onAddIncome }: { onAddIncome: (income: any) => void }) 
       <Input 
         value={income.date}
         onChange={({ target }) => handleChange('date', target.value)}
-        label="Date"
+        label={t('dashboard.income.graphic.form.date')}
         placeholder=""
         type="date"
       />
@@ -57,7 +61,7 @@ const AddIncomeForm = ({ onAddIncome }: { onAddIncome: (income: any) => void }) 
           className="add-btn add-btn-fill"
           onClick={() => onAddIncome(income)}
         >
-          Add Income
+          {t('dashboard.income.graphic.form.button')}
         </button>
       </div>
     </div>

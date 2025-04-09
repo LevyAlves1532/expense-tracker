@@ -3,6 +3,8 @@ import { useState } from "react";
 import EmojiPickerPopup from "../EmojiPickerPopup";
 import Input from "../Inputs/Input";
 
+import { useLanguage } from "../../hooks/useLanguage";
+
 export type ExpenseTypes = {
   category: string;
   amount: number;
@@ -11,6 +13,8 @@ export type ExpenseTypes = {
 };
 
 const AddExpenseForm = ({ onAddExpense }: { onAddExpense: (expense: ExpenseTypes) => void }) => {
+  const { t } = useLanguage();
+
   const [ expense, setExpense ] = useState<ExpenseTypes>({
     category: '',
     amount: 0,
@@ -30,15 +34,15 @@ const AddExpenseForm = ({ onAddExpense }: { onAddExpense: (expense: ExpenseTypes
       <Input 
         value={expense.category}
         onChange={({ target }) => handleChange('category', target.value)}
-        label="Category"
-        placeholder="Rent, Groceries, etc"
+        label={t('dashboard.expense.graphic.form.category.label')}
+        placeholder={t('dashboard.expense.graphic.form.category.placeholder')}
         type="text"
       />
 
       <Input 
         value={`${expense.amount}`}
         onChange={({ target }) => handleChange('amount', target.value)}
-        label="Amount"
+        label={t('dashboard.expense.graphic.form.amount')}
         placeholder=""
         type="number"
       />
@@ -46,7 +50,7 @@ const AddExpenseForm = ({ onAddExpense }: { onAddExpense: (expense: ExpenseTypes
       <Input 
         value={expense.date}
         onChange={({ target }) => handleChange('date', target.value)}
-        label="Date"
+        label={t('dashboard.expense.graphic.form.date')}
         placeholder=""
         type="date"
       />
@@ -57,7 +61,7 @@ const AddExpenseForm = ({ onAddExpense }: { onAddExpense: (expense: ExpenseTypes
           className="add-btn add-btn-fill"
           onClick={() => onAddExpense(expense)}
         >
-          Add Expense
+          {t('dashboard.expense.graphic.form.button')}
         </button>
       </div>
     </div>

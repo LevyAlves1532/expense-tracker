@@ -3,15 +3,19 @@ import { LuArrowRight } from "react-icons/lu";
 
 import TransactionInfoCard from "../Cards/TransactionInfoCard";
 
+import { useLanguage } from "../../hooks/useLanguage";
+
 import { TransactionsTypes } from "../../types";
 
 const ExpenseTransactions = ({ transactions, onSeeMore }: { transactions: TransactionsTypes[], onSeeMore: () => void }) => {
+  const { t } = useLanguage();
+
   return (
     <div className="card">
       <div className="flex items-center justify-between">
-        <h5 className="text-lg">Expanses</h5>
+        <h5 className="text-lg">{t('dashboard.home.expanses.title')}</h5>
         <button className="card-btn" onClick={onSeeMore}>
-          See All <LuArrowRight className="text-base" />
+        {t('dashboard.home.button')} <LuArrowRight className="text-base" />
         </button>
       </div>
 

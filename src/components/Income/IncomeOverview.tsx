@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
-import { TransactionsTypes } from "../../types";
 import { LuPlus } from "react-icons/lu";
 
 import CustomBarChart from "../charts/CustomBarChart";
 
+import { useLanguage } from "../../hooks/useLanguage";
+
 import { prepareIncomeBarChartData } from "../../utils/helper";
 
+import { ChartDataTypes, TransactionsTypes } from "../../types";
+
 const IncomeOverview = ({ transactions, onAddIncome }: { transactions: TransactionsTypes[], onAddIncome: ()=> void }) => {
-  const [ chartData, setChartData ] = useState<any[]>([]);
+  const { t } = useLanguage();
+
+  const [ chartData, setChartData ] = useState<ChartDataTypes[]>([]);
 
   useEffect(() => {
     const result = prepareIncomeBarChartData(transactions);
@@ -21,16 +26,16 @@ const IncomeOverview = ({ transactions, onAddIncome }: { transactions: Transacti
       <div className="flex items-center justify-between">
         <div className="">
           <h5 className="text-lg">
-            Income Overview
+            {t('dashboard.income.graphic.title')}
           </h5>
           <p className="text-xs text-gray-400mt-0.5">
-            Track your earnings over time and analyze your income trends.
+            {t('dashboard.income.graphic.subtitle')}
           </p>
         </div>
 
         <button className="add-btn" onClick={onAddIncome}>
           <LuPlus className="text-lg" />
-          Add Income
+          {t('dashboard.income.graphic.button')}
         </button>
       </div>
       

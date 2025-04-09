@@ -12,6 +12,7 @@ import Modal from "../../components/Modal";
 import { UserContext } from "../../context/userContext";
 
 import { useUserAuth } from "../../hooks/useUserAuth";
+import { useLanguage } from "../../hooks/useLanguage";
 
 import { API_PATHS } from "../../utils/apiPaths";
 import axiosInstance from "../../utils/axiosInstance";
@@ -21,6 +22,7 @@ import { TransactionsTypes } from "../../types";
 const Expense = () => {
   useUserAuth();
 
+  const { t } = useLanguage();
   const { user } = useContext(UserContext);
 
   const [ expenseData, setExpenseData ] = useState<TransactionsTypes[]>([]);
@@ -121,7 +123,7 @@ const Expense = () => {
   }, [])
 
   return (
-    <DashboardLayout activeMenu="Expense">
+    <DashboardLayout activeMenu="expense">
       <div className="my-5 mx-auto">
         <div className="grid grid-cols-1 gap-6">
           <div className="">
@@ -145,7 +147,7 @@ const Expense = () => {
 
         <Modal
           isOpen={openAddExpenseModal}
-          title="Add Expense"
+          title={t('dashboard.expense.graphic.form.title')}
           onClose={() => setOpenAddExpenseModal(false)}
         >
           <AddExpenseForm 
@@ -156,10 +158,10 @@ const Expense = () => {
         <Modal
           isOpen={openDeleteAlert.show}
           onClose={() => setOpenDeleteAlert({ show: false, data: null })}
-          title="Delete Expense"
+          title={t('dashboard.expense.transactions.delete.title')}
         >
           <DeleteAlert 
-            content="Are you sure you want to delete this in expense detail?"
+            content={t('dashboard.expense.transactions.delete.text')}
             onDelete={() => deleteExpense(openDeleteAlert.data!)}
           />
         </Modal>

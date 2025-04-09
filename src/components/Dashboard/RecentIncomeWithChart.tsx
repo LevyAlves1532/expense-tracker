@@ -2,11 +2,15 @@ import { useEffect, useState } from "react";
 
 import CustomPieChart from "../charts/CustomPieChart";
 
+import { useLanguage } from "../../hooks/useLanguage";
+
 import { ResumTransactionTypes, TransactionsTypes } from "../../types";
 
-const COLORS = ['#875CF5', '#FA2C37', '#FF6900'];
+const COLORS = ['#ffb851', '#FA2C37', '#FF6900'];
 
 const RecentIncomeWithChart = ({ data, totalIncome }: { data: TransactionsTypes[], totalIncome: number }) => {
+  const { t } = useLanguage();
+
   const [ chartData, setChartData ] = useState<ResumTransactionTypes[]>([]);
 
   const prepareChartData = () => {
@@ -27,7 +31,7 @@ const RecentIncomeWithChart = ({ data, totalIncome }: { data: TransactionsTypes[
   return (
     <div className="card">
       <div className="flex items-center justify-between">
-        <h5 className="text-lg">Last 60 Days Income</h5>
+        <h5 className="text-lg">{t('dashboard.home.incomes.graphic')}</h5>
       </div>
 
       <CustomPieChart 

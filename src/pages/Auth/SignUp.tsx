@@ -8,12 +8,15 @@ import AuthLayout from "../../components/layouts/AuthLayout";
 
 import { UserContext, UserType } from "../../context/userContext";
 
+import { useLanguage } from "../../hooks/useLanguage";
+
 import { API_PATHS } from "../../utils/apiPaths";
 import axiosInstance from "../../utils/axiosInstance";
 import { validateEmail } from "../../utils/helper";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const { t } = useLanguage();
 
   const { updateUser } = useContext(UserContext);
 
@@ -90,9 +93,9 @@ const SignUp = () => {
   return (
     <AuthLayout>
       <div className="lg:w-[100%] h-auto md:h-full mt-10 md:mt-0 flex flex-col justify-center">
-        <h3 className="text-xl font-semibold text-black">Create an Account</h3>
+        <h3 className="text-xl font-semibold text-black">{t('auth.register.title')}</h3>
         <p className="text-xs text-slate-700 mt-[5px] mb-6">
-          Join us today by entering your details below
+          {t('auth.register.phrase')}
         </p>
 
         <form onSubmit={handleSignUp}>
@@ -105,16 +108,16 @@ const SignUp = () => {
             <Input 
               value={fullName}
               onChange={({ target }) => setFullName(target.value)}
-              label="Full Name"
-              placeholder="John"
+              label={t('auth.register.form.fullname.label')}
+              placeholder={t('auth.register.form.fullname.placeholder')}
               type="text"
             />
 
             <Input 
               value={email}
               onChange={({ target }) => setEmail(target.value)}
-              label="Email Address"
-              placeholder="john@example.com"
+              label={t('auth.register.form.email.label')}
+              placeholder={t('auth.register.form.email.placeholder')}
               type="text"
             />
 
@@ -122,8 +125,8 @@ const SignUp = () => {
               <Input 
                 value={password}
                 onChange={({ target }) => setPassword(target.value)}
-                label="Password"
-                placeholder="Min 8 Characters"
+                label={t('auth.register.form.password.label')}
+                placeholder={t('auth.register.form.password.placeholder')}
                 type="password"
               />
             </div>
@@ -134,13 +137,13 @@ const SignUp = () => {
           )}
 
           <button type="submit" className="btn-primary">
-            SIGN UP
+            {t('auth.register.form.button')}
           </button>
 
           <p className="text-[13px] text-slate-800 mt-3">
-            Already have an account?{" "}
+            {t('auth.register.link.text') + " "}
             <Link className="font-medium text-primary underline" to="/login">
-              Login
+              {t('auth.register.link.actionText')}
             </Link>
           </p>
         </form>

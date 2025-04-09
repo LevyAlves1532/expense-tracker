@@ -1,5 +1,7 @@
 import { LuUtensils, LuTrendingUp, LuTrendingDown, LuTrash2 } from 'react-icons/lu';
 
+import { useLanguage } from '../../hooks/useLanguage';
+
 export type Props = {
   title: string;
   icon: string | null;
@@ -19,6 +21,8 @@ const TransactionInfoCard = ({
   hideDeleteBtn,
   onDelete,
 }: Props) => {
+  const { convertMoney } = useLanguage();
+
   const getAmountStyles = () => 
     type === 'income' ? 'bg-green-50 text-green-500' : 'bg-red-50 text-red-500';
 
@@ -47,7 +51,7 @@ const TransactionInfoCard = ({
 
           <div className={`flex items-center gap-2 px-2 py-1.5 rounded-md ${getAmountStyles()}`}>
             <h6 className="text-xs font-medium">
-              {type === 'income' ? '+' : '-'} ${amount}
+              {type === 'income' ? '+' : '-'} {convertMoney(amount)}
             </h6>
 
             {type === 'income' ? <LuTrendingUp /> : <LuTrendingDown />}

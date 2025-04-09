@@ -1,12 +1,12 @@
 import moment from "moment";
-import { ResumTransactionExpenseTypes, TransactionsTypes } from "../types";
+import { ChartDataTypes, ResumTransactionExpenseTypes, TransactionsTypes } from "../types";
 
 export const validateEmail = (email: string) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
 };
 
-export const getInitials = (name: string) => {
+export const getInitials = (name: string): string => {
     if (!name) return "";
 
     const words = name.split(' ');
@@ -19,7 +19,7 @@ export const getInitials = (name: string) => {
     return initials.toUpperCase();
 };
 
-export const addThousandsSeparator = (num: number | null = null) => {
+export const addThousandsSeparator = (num: number | null = null): string => {
     if (num == null || isNaN(num)) return "";
 
     const [ integerPart, fractionalPart ] = num.toString().split('.');
@@ -39,8 +39,8 @@ export const prepareExpenseBarChartData = (data: TransactionsTypes[] = []): Resu
     return chartData;
 }
 
-export const prepareIncomeBarChartData = (data: any[] = []) => {
-    const sortedData = [...data].sort((a,b) => new Date(a.date) - new Date(b.date));
+export const prepareIncomeBarChartData = (data: TransactionsTypes[] = []): ChartDataTypes[] => {
+    const sortedData = [...data].sort((a,b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
     const chartData = sortedData.map((item) => ({
         month: moment(item?.date).format('Do MMM'),
@@ -51,8 +51,8 @@ export const prepareIncomeBarChartData = (data: any[] = []) => {
     return chartData;
 }
 
-export const prepareExpenseLineChartData = (data: any[] = []) => {
-    const sortedData = [...data].sort((a, b) => new Date(a.date) - new Date(b.date));
+export const prepareExpenseLineChartData = (data: TransactionsTypes[] = []): ChartDataTypes[] => {
+    const sortedData = [...data].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
     const chartData = sortedData.map((item) => ({
         month: moment(item?.date).format('Do MMM'),

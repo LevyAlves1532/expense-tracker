@@ -1,26 +1,29 @@
 import CustomPieChart from "../charts/CustomPieChart";
 
 import { ResumTransactionTypes } from "../../types";
+import { useLanguage } from "../../hooks/useLanguage";
 
-const COLORS = ['#875CF5', '#FA2C37', '#FF6900'];
+const COLORS = ['#ffb851', '#FA2C37', '#FF6900'];
 
 const FinanceOverview = ({ totalBalance, totalIncome, totalExpense }: { totalBalance: number,  totalIncome: number, totalExpense: number }) => {
+  const { t, convertMoney } = useLanguage();
+
   const balanceData: ResumTransactionTypes[] = [
-    {name: 'Total Balance', amount: totalBalance},
-    {name: 'Total Expense', amount: totalExpense},
-    {name: 'Total Income', amount: totalIncome},
+    {name: t('dashboard.home.cards.balance'), amount: totalBalance},
+    {name: t('dashboard.home.cards.income'), amount: totalExpense},
+    {name: t('dashboard.home.cards.expense'), amount: totalIncome},
   ];
 
   return (
     <div className="card">
       <div className="flex items-center justify-between">
-        <h5 className="text-lg">Financial Overview</h5>
+        <h5 className="text-lg">{t('dashboard.home.transactions.graphic')}</h5>
       </div>
 
       <CustomPieChart 
         data={balanceData}
         label="Total Balance"
-        totalAmount={`$${totalBalance}`}
+        totalAmount={convertMoney(totalBalance)}
         colors={COLORS}
         showTextAnchor
       />

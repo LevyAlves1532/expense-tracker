@@ -10,9 +10,11 @@ import { UserContext, UserType } from "../../context/userContext";
 import { API_PATHS } from "../../utils/apiPaths";
 import axiosInstance from "../../utils/axiosInstance";
 import { validateEmail } from "../../utils/helper";
+import { useLanguage } from "../../hooks/useLanguage";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { t } = useLanguage();
 
   const { updateUser } = useContext(UserContext);
 
@@ -71,25 +73,25 @@ const Login = () => {
   return (
     <AuthLayout>
       <div className="lg:w-[70%] h-3/4 md:h-full flex flex-col justify-center">
-        <h3 className="text-xl font-semibold text-black">Welcome Back</h3>
+        <h3 className="text-xl font-semibold text-black">{t('auth.login.title')}</h3>
         <p className="text-xs text-slate-700 mt-[5px] mb-6">
-          Please enter your details to log in
+          {t('auth.login.phrase')}
         </p>
 
         <form onSubmit={handleLogin}>
           <Input 
             value={email}
             onChange={({ target }) => setEmail(target.value)}
-            label="Email Address"
-            placeholder="john@example.com"
+            label={t('auth.login.form.email.label')}
+            placeholder={t('auth.login.form.email.placeholder')}
             type="text"
           />
 
           <Input 
             value={password}
             onChange={({ target }) => setPassword(target.value)}
-            label="Password"
-            placeholder="Min 8 Characters"
+            label={t('auth.login.form.password.label')}
+            placeholder={t('auth.login.form.password.placeholder')}
             type="password"
           />
 
@@ -98,13 +100,13 @@ const Login = () => {
           )}
 
           <button type="submit" className="btn-primary">
-            LOGIN
+            {t('auth.login.form.button')}
           </button>
 
           <p className="text-[13px] text-slate-800 mt-3">
-            Don't have an account?{" "}
+            {t('auth.login.link.text') + " "}
             <Link className="font-medium text-primary underline" to="/sign-up">
-              SignUp
+              {t('auth.login.link.actionText')}
             </Link>
           </p>
         </form>

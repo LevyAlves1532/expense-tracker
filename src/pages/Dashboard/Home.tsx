@@ -13,6 +13,7 @@ import RecentIncomeWithChart from "../../components/Dashboard/RecentIncomeWithCh
 import RecentIncome from "../../components/Dashboard/RecentIncome";
 
 import { useUserAuth } from "../../hooks/useUserAuth";
+import { useLanguage } from "../../hooks/useLanguage";
 
 import { API_PATHS } from "../../utils/apiPaths";
 import axiosInstance from "../../utils/axiosInstance";
@@ -33,6 +34,7 @@ const Home = () => {
   useUserAuth();
 
   const navigate = useNavigate();
+  const { t, convertMoney } = useLanguage();
 
   const [ dashboardData, setDashboardData ] = useState<DashboardDataType | null>(null);
   const [ loading, setLoading ] = useState(false);
@@ -61,25 +63,25 @@ const Home = () => {
   }, [])
 
   return (
-    <DashboardLayout activeMenu="Dashboard">
+    <DashboardLayout activeMenu="dashboard">
       <div className="my-5 mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <InfoCard 
             icon={<IoMdCard />}
-            label="Total Balance"
-            value={addThousandsSeparator(dashboardData?.total_balance)}
+            label={t('dashboard.home.cards.balance')}
+            value={convertMoney(dashboardData?.total_balance)}
             color="bg-primary"
           />
           <InfoCard 
             icon={<LuWalletMinimal />}
-            label="Total Income"
-            value={addThousandsSeparator(dashboardData?.total_income)}
+            label={t('dashboard.home.cards.income')}
+            value={convertMoney(dashboardData?.total_income)}
             color="bg-orange-500"
           />
           <InfoCard 
             icon={<LuHandCoins />}
-            label="Total Expense"
-            value={addThousandsSeparator(dashboardData?.total_expense)}
+            label={t('dashboard.home.cards.expense')}
+            value={convertMoney(dashboardData?.total_expense)}
             color="bg-red-500"
           />
         </div>

@@ -3,6 +3,8 @@ import { LuDownload } from "react-icons/lu";
 
 import TransactionInfoCard from "../Cards/TransactionInfoCard";
 
+import { useLanguage } from "../../hooks/useLanguage";
+
 import { TransactionsTypes } from "../../types";
 
 export type Props = {
@@ -12,11 +14,13 @@ export type Props = {
 }
 
 const ExpenseList = ({ transactions, onDelete, onDownload }: Props) => {
+  const { t } = useLanguage();
+
   return (
     <div className="card">
       <div className="flex items-center justify-between">
         <h5 className="text-lg">
-          All Expenses
+          {t('dashboard.expense.transactions.title')}
         </h5>
 
         <button className="card-btn" onClick={onDownload}>

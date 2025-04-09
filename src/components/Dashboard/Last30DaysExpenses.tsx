@@ -3,9 +3,13 @@ import { useEffect, useState } from "react";
 import { prepareExpenseBarChartData } from "../../utils/helper";
 import CustomBarChart from "../charts/CustomBarChart";
 
+import { useLanguage } from "../../hooks/useLanguage";
+
 import { ResumTransactionExpenseTypes, TransactionsTypes } from "../../types";
 
 const Last30DaysExpenses = ({ data }: { data: TransactionsTypes[] }) => {
+  const { t } = useLanguage();
+
   const [ chartData, setChartData ] = useState<ResumTransactionExpenseTypes[]>([]);
 
   useEffect(() => {
@@ -18,7 +22,7 @@ const Last30DaysExpenses = ({ data }: { data: TransactionsTypes[] }) => {
   return (
     <div className="card col-span-1">
       <div className="flex items-center justify-between">
-        <h5 className="text-lg">Last 30 Days Expenses</h5>
+        <h5 className="text-lg">{t('dashboard.home.expanses.graphic')}</h5>
       </div>
 
       <CustomBarChart 
