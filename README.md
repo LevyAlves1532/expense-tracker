@@ -1,3 +1,5 @@
+![Imagem inicial do projeto](https://github.com/LevyAlves1532/expense-tracker/blob/master/readme/register.jpg)
+
 ## Expense Tracker
 O Expense Tracker é uma aplicação inspirada em um projeto de controle financeiro desenvolvido inicialmente pelo canal Time To Program. Essa versão foi criada com o objetivo de consolidar e expandir conhecimentos em React, utilizando tecnologias modernas como ContextAPI para o gerenciamento de estados, tailwindCss para estilização e React Router Dom para a navegação entre páginas essenciais do sistema.
 Uma das principais inovações desta versão é sua capacidade multilíngue, oferecendo suporte aos idiomas inglês, português e espanhol. Além disso, a aplicação realiza conversões de moeda para os formatos e padrões específicos de cada idioma selecionado, garantindo uma experiência adaptada e localizada para os usuários ao redor do mundo.
@@ -32,12 +34,20 @@ O expense tracker tem uma API que deve ser instalada no projeto para que ele fun
       ```
         export const BASE_URL = 'http://127.0.0.1:8000/api';
       ```
-      
+
     - Entre na pasta raiz do projeto e rode o seguinte comando: `npm run dev`
 
 ## Como usar?
 
 Após a API está instalada e configurada no projeto, basta usar a aplicação, criar uma conta, fazer login, e começar a fazer o gerenciamento de suas despesas e rendas.
+
+## Imagens
+
+![Página de cadastro](https://github.com/LevyAlves1532/expense-tracker/blob/master/readme/register.jpg)
+![Página do dashboard](https://github.com/LevyAlves1532/expense-tracker/blob/master/readme/dashboard.jpg)
+![Página das rendas](https://github.com/LevyAlves1532/expense-tracker/blob/master/readme/incomes.jpg)
+![Página das despesas](https://github.com/LevyAlves1532/expense-tracker/blob/master/readme/expenses.jpg)
+![Relatório de desepesas em excel](https://github.com/LevyAlves1532/expense-tracker/blob/master/readme/report-expenses.jpg)
 
 ## Links
 
