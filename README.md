@@ -1,54 +1,56 @@
-# React + TypeScript + Vite
+## Expense Tracker
+O Expense Tracker é uma aplicação inspirada em um projeto de controle financeiro desenvolvido inicialmente pelo canal Time To Program. Essa versão foi criada com o objetivo de consolidar e expandir conhecimentos em React, utilizando tecnologias modernas como ContextAPI para o gerenciamento de estados, tailwindCss para estilização e React Router Dom para a navegação entre páginas essenciais do sistema.
+Uma das principais inovações desta versão é sua capacidade multilíngue, oferecendo suporte aos idiomas inglês, português e espanhol. Além disso, a aplicação realiza conversões de moeda para os formatos e padrões específicos de cada idioma selecionado, garantindo uma experiência adaptada e localizada para os usuários ao redor do mundo.
+Essas melhorias não apenas enriquecem a funcionalidade original, mas também proporcionam uma experiência mais intuitiva e personalizada para o gerenciamento de despesas pessoais e financeiras.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Referência
+[Aula que assistir - Build a Full-Stack MERN Expense Tracker | React, Node.js, MongoDB, Express | MERN Project - Canal Time To Program](https://www.youtube.com/watch?v=PQnbtnsYUho)
 
-Currently, two official plugins are available:
+## Tecnologias
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Tecnologias usadas no projeto:
 
-## Expanding the ESLint configuration
+  * React 19.0.0
+  * Node 22.12.0
+  * Axios 1.8.4
+  * TailwindCss 4.0.9
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Serviços Usados
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+O expense tracker tem uma API que deve ser instalada no projeto para que ele funcione corretamente, a API foi desenvolvida em Laravel.
+[API Expense Tracker - Repositório](https://github.com/LevyAlves1532/api-expense-tracker)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Para Iniciar
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+  * Ambiente:
+    - Ter o Node na versão 22.12.0 LTS
+  
+  * Como rodar o projeto?
+    - Instale as dependencias do projeto com o seguinte comando: `npm install` ou `yarn`
+    - Logo após configure a URL da API no projeto em `src\utils\apiPaths.ts`, cole a URL na constante `BASE_URL`
+      Ex:
+      ```
+        export const BASE_URL = 'http://127.0.0.1:8000/api';
+      ```
+      
+    - Entre na pasta raiz do projeto e rode o seguinte comando: `npm run dev`
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## Como usar?
+
+Após a API está instalada e configurada no projeto, basta usar a aplicação, criar uma conta, fazer login, e começar a fazer o gerenciamento de suas despesas e rendas.
+
+## Links
+
+  * Repositorio: https://github.com/LevyAlves1532/expense-tracker
+    - Caso você encontre algum bug, ou tenha dúvidas sobre o projeto, entre em contato levy.pereiraA1532@gmail.com, desde já agradeço pela atenção!
+
+  ## Versão do Projeto
+
+  1.0.0
+
+  ## Autor do Projeto
+
+  * **Lêvy Pereira Alves**
+
+  Siga o github e junte-se a nós!
+  Obrigado por me visitar e boa codificação!
